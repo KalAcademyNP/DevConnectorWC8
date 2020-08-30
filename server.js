@@ -1,9 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 const app = express();
+
+//Body parser configuration
+app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.json());
 
 //First route
 app.get('/', (req, res) => res.send('Hello World') );
