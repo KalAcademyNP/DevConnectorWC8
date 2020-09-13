@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const keys = require('../../config/keys');
 const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 const router = express.Router();
 
 // @route   POST /api/users/register
@@ -56,6 +57,13 @@ router.post('/register', (req, res) => {
 // @desc    Login user
 // @access  Public
 router.post('/login', (req, res) => {
+
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
